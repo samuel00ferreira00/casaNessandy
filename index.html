@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Nessandy - Imobiliária e Serviços</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#d97706', // Amber 600 - Um tom mais sofisticado de laranja/dourado
+                        primaryLight: '#f59e0b',
+                        secondary: '#111827', // Fundo escuro
+                        dark: '#0a0a0a',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'gold': '0 4px 14px 0 rgba(217, 119, 6, 0.39)',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif; /* Mantendo consistência, mas poderia usar Playfair para títulos mais clássicos */
+        }
+        
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect simples */
+        }
+
+        .glass-effect {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .service-card:hover i {
+            transform: scale(1.1);
+            color: #d97706;
+        }
+
+        /* Animações de entrada */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        /* Custom animations */
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in 1s ease-out forwards;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: rgba(217, 119, 6, 0.3);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-overlay {
+            background: radial-gradient(circle at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen text-gray-800">
+    
+    <!-- Navbar -->
+    <nav class="bg-black/95 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center flex-shrink-0">
+                    <a href="index.html" class="flex items-center group">
+                        <img src="img/logo.jpg" alt="Casa Nessandy" class="h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+                        <span class="sr-only">Casa Nessandy</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-white hover:text-primary transition-colors font-medium text-xs uppercase tracking-[0.15em] border-b-2 border-transparent hover:border-primary py-1">Home</a>
+                    <a href="contato.html" class="bg-primary hover:bg-white hover:text-primary text-white px-6 py-2.5 rounded-full transition-all duration-300 font-bold text-xs uppercase tracking-widest shadow-gold transform hover:-translate-y-0.5">Fale Conosco</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-white hover:text-primary focus:outline-none transition-colors">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-gray-800 absolute w-full">
+            <div class="px-4 pt-4 pb-6 space-y-2">
+                <a href="index.html" class="block px-3 py-3 rounded-md text-sm font-bold text-white hover:text-primary hover:bg-gray-900 uppercase tracking-wider">Home</a>
+                <a href="contato.html" class="block px-3 py-3 rounded-md text-sm font-bold text-white hover:text-primary hover:bg-gray-900 uppercase tracking-wider">Fale Conosco</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative h-[600px] flex items-center justify-center bg-black overflow-hidden">
+            <div class="absolute inset-0 hero-bg opacity-60"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
+            
+            <div class="relative z-10 max-w-6xl mx-auto px-4 text-center w-full">
+                <div class="fade-in-up">
+                    <h1 class="text-4xl md:text-7xl font-bold mb-6 text-white leading-tight">
+                        Bem-vindo à<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-yellow-300"> Casa Nessandy</span>
+                    </h1>
+                    <span class="text-primary font-bold tracking-[0.3em] uppercase text-sm mb-4 block">Excelência em cada detalhe</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nossos Serviços Detalhados -->
+        <section class="py-24 bg-white overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32">
+                
+                <!-- Imobiliária (Texto Direita) -->
+                <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+                    <div class="w-full md:w-1/2 relative">
+                        <div class="absolute top-6 -left-6 z-10 bg-primary text-white p-6 rounded-tr-3xl rounded-bl-3xl shadow-xl animate-bounce-slow">
+                            <span class="block text-4xl font-bold text-center">10+</span>
+                            <span class="text-xs uppercase tracking-wider font-medium">Anos de Mercado</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Apartamento Moderno" class="rounded-2xl shadow-lg w-full h-64 object-cover transform translate-y-8">
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Interior Apartamento" class="rounded-2xl shadow-lg w-full h-64 object-cover">
+                        </div>
+                        <!-- Decorative Blob -->
+                        <div class="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gray-50 rounded-full opacity-50 blur-3xl"></div>
+                    </div>
+                    
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="text-primary font-bold uppercase tracking-[0.2em] text-sm">Imobiliária Premium</span>
+                            <div class="h-0.5 w-16 bg-primary"></div>
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                            O seu refúgio de sonho <span class="text-primary">começa aqui.</span>
+                        </h2>
+                        <p class="text-xl font-medium text-gray-800 mb-6">
+                            Encontramos o lar perfeito para a sua história, com segurança e exclusividade em cada negócio.
+                        </p>
+                        <p class="text-gray-500 mb-8 leading-relaxed font-light">
+                            Com uma vasta carteira de imóveis exclusivos e uma equipa dedicada, simplificamos todo o processo de compra, venda ou arrendamento. Garantimos assessoria jurídica completa e negociações transparentes para que a sua única preocupação seja desfrutar da sua nova casa.
+                        </p>
+                        <a href="contato.html" class="inline-flex items-center bg-secondary hover:bg-primary text-white font-bold py-4 px-8 rounded-none transition-all duration-300 uppercase text-xs tracking-widest group">
+                            Fale Conosco
+                            <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Limpeza (Texto Esquerda) -->
+                <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-24">
+                    <div class="w-full md:w-1/2 relative group">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-primary to-secondary rounded-full opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-700"></div>
+                        <div class="grid grid-cols-2 gap-4 relative">
+                            <!-- Image -->
+                            <div class="h-64 md:h-80 relative overflow-hidden rounded-3xl shadow-2xl transform translate-y-8">
+                                <img src="img/limpeza1.jpeg" alt="Limpeza Residencial" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80"></div>
+                                <div class="absolute bottom-4 left-4 right-4">
+                                    <h3 class="text-lg font-bold text-white mb-1">Residencial</h3>
+                                    <p class="text-xs text-gray-300">Detalhes que importam</p>
+                                </div>
+                            </div>
+                            <!-- Image -->
+                            <div class="h-64 md:h-80 relative overflow-hidden rounded-3xl shadow-2xl transform -translate-y-8">
+                                <img src="img/limpeza2.jpeg" alt="Limpeza Profunda" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80"></div>
+                                <div class="absolute bottom-4 left-4 right-4">
+                                    <h3 class="text-lg font-bold text-white mb-1">Profunda</h3>
+                                    <p class="text-xs text-gray-300">Higiene completa</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 text-left"> <!-- Ajuste de alinhamento para mobile/desktop -->
+                         <div class="flex items-center gap-4 mb-6 justify-start">
+                            <span class="py-1 px-3 rounded-full bg-primary/10 text-primary font-bold uppercase tracking-[0.2em] text-xs border border-primary/20">Ambientes Impecáveis</span>
+                        </div>
+                        <h3 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-playfair leading-tight">
+                            Limpeza Profissional <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Saúde e Bem-estar</span>
+                        </h3>
+                        <p class="text-gray-600 text-lg leading-relaxed mb-8 font-light">
+                            Mais do que limpeza, oferecemos tranquilidade. Nossa equipe especializada utiliza produtos de alta qualidade e técnicas avançadas para garantir um ambiente saudável, organizado e acolhedor para você e sua família.
+                        </p>
+                        
+                        <ul class="space-y-4 mb-10">
+                            <li class="flex items-center group">
+                                <span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                                    <i class="fas fa-check text-primary group-hover:text-white"></i>
+                                </span>
+                                <span class="text-gray-700 font-medium">Limpezas Domésticas Regulares</span>
+                            </li>
+                            <li class="flex items-center group">
+                                <span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                                    <i class="fas fa-check text-primary group-hover:text-white"></i>
+                                </span>
+                                <span class="text-gray-700 font-medium">Limpezas Profundas Pós-Obra</span>
+                            </li>
+                            <li class="flex items-center group">
+                                <span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                                    <i class="fas fa-check text-primary group-hover:text-white"></i>
+                                </span>
+                                <span class="text-gray-700 font-medium">Higienização de Estofados e Tapetes</span>
+                            </li>
+                        </ul>
+
+                        <div class="flex justify-start">
+                            <a href="contato.html" class="inline-flex items-center bg-gray-900 hover:bg-primary text-white font-bold py-4 px-10 rounded-full transition-all duration-300 uppercase text-xs tracking-widest group shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+                                Agendar Limpeza
+                                <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apoio a Idosos (Texto Direita) -->
+                <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+                    <div class="w-full md:w-1/2 relative group order-first md:order-last">
+                        <div class="absolute -inset-4 bg-gradient-to-l from-primary to-secondary rounded-full opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-700"></div>
+                        <div class="h-80 md:h-96 relative overflow-hidden rounded-3xl shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
+                            <img src="img/cuidado2.jpg" alt="Apoio a Idosos" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+
+                        </div>
+                    </div>
+                    
+                    <div class="w-full md:w-1/2">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="text-primary font-bold uppercase tracking-[0.2em] text-sm">Cuidados de Saúde e Apoio Domiciliário</span>
+                            <div class="h-0.5 w-16 bg-primary"></div>
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                            Acompanhamento <span class="text-primary">até 24 horas.</span>
+                        </h2>
+                        <p class="text-xl font-medium text-gray-800 mb-6">
+                            A alternativa completa à institucionalização. Continue no conforto do lar que construiu durante uma vida.
+                        </p>
+                        <p class="text-gray-500 mb-6 leading-relaxed font-light">
+                            O nosso serviço de Apoio Domiciliário é uma resposta social que garante a satisfação das necessidades básicas e atividades da vida diária para pessoas em situação de dependência. Disponível 365 dias por ano, incluindo fins de semana e feriados.
+                        </p>
+                        
+                        <ul class="space-y-2 mb-8 text-gray-600 font-light">
+                            <li class="flex items-start"><i class="fas fa-check text-primary mt-1.5 mr-3 flex-shrink-0"></i> Higiene pessoal e conforto (banho na cama ou casa de banho)</li>
+                            <li class="flex items-start"><i class="fas fa-check text-primary mt-1.5 mr-3 flex-shrink-0"></i> Administração de medicamentos prescritos</li>
+                            <li class="flex items-start"><i class="fas fa-check text-primary mt-1.5 mr-3 flex-shrink-0"></i> Acompanhamento em deslocações e consultas</li>
+                            <li class="flex items-start"><i class="fas fa-check text-primary mt-1.5 mr-3 flex-shrink-0"></i> Estimulação psicomotora e atividades lúdicas</li>
+                            <li class="flex items-start"><i class="fas fa-check text-primary mt-1.5 mr-3 flex-shrink-0"></i> Tratamento de roupas e tarefas domésticas leves</li>
+                        </ul>
+
+                        <a href="contato.html" class="inline-flex items-center bg-secondary hover:bg-primary text-white font-bold py-4 px-8 rounded-none transition-all duration-300 uppercase text-xs tracking-widest group">
+                            Pedir Orçamento
+                            <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TVDE & Obras (Grid Duplo para finalizar) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- TVDE -->
+                    <div class="bg-gray-50 p-10 rounded-3xl border border-gray-100 group hover:shadow-2xl transition-all duration-300">
+                        <div class="relative h-64 mb-8 overflow-hidden rounded-2xl">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="TVDE" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute bottom-4 left-4 z-20 bg-white/90 backdrop-blur px-4 py-2 rounded-lg shadow-sm">
+                                <span class="text-xs font-bold uppercase tracking-widest text-gray-900">Mobilidade</span>
+                            </div>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">TVDE</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            <strong>A sua jornada, a nossa prioridade.</strong> Viagens seguras e confortáveis com motoristas de elite. Frota moderna para transfers, eventos ou deslocações diárias com pontualidade suíça.
+                        </p>
+                        <a href="contato.html" class="text-primary font-bold uppercase text-xs tracking-widest hover:text-gray-900 transition-colors flex items-center">
+                            Agendar Viagem <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+
+                    <!-- Obras -->
+                    <div class="bg-gray-50 p-10 rounded-3xl border border-gray-100 group hover:shadow-2xl transition-all duration-300">
+                        <div class="relative h-64 mb-8 overflow-hidden rounded-2xl">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors z-10"></div>
+                            <img src="img/obra.jpg" alt="Obras" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute bottom-4 left-4 z-20 bg-white/90 backdrop-blur px-4 py-2 rounded-lg shadow-sm">
+                                <span class="text-xs font-bold uppercase tracking-widest text-gray-900">Construção</span>
+                            </div>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">Obras & Reformas</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            <strong>Construímos visões, solidificamos futuros.</strong> Da fundação ao acabamento, transformamos os seus projetos em realidade. Equipe multidisciplinar para remodelações com garantia de qualidade.
+                        </p>
+                        <a href="contato.html" class="text-primary font-bold uppercase text-xs tracking-widest hover:text-gray-900 transition-colors flex items-center">
+                            Pedir Orçamento <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Quem Somos -->
+        <section class="py-24 bg-gray-50 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center gap-16">
+                    <div class="md:w-1/2">
+                        <span class="text-primary font-bold uppercase tracking-[0.2em] text-xs mb-3 block">Sobre Nós</span>
+                        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">Tradição e Confiança <br>no Mercado</h2>
+                        <p class="text-gray-600 mb-6 leading-relaxed text-lg font-light">
+                            Somos uma agência imobiliária consciente da crescente complexidade e riscos associados a um negócio imobiliário. Trabalhamos todos os dias para melhorar o nosso conhecimento do mercado, dedicando toda a nossa energia para obter resultados.
+                        </p>
+                        <p class="text-gray-600 mb-10 leading-relaxed text-lg font-light">
+                            Ajudamos os nossos clientes a decidir com consciência e segurança. Na Casa Nessandy, você encontra mais do que um serviço, encontra uma família dedicada ao seu bem-estar.
+                        </p>
+                        
+                        <div class="flex gap-4">
+                            <a href="contato.html" class="inline-flex items-center justify-center border-2 border-black text-black hover:bg-black hover:text-white font-bold py-4 px-10 rounded-full transition-all duration-300 uppercase tracking-wider text-sm">
+                                Saiba Mais
+                            </a>
+                            <a href="contato.html" class="inline-flex items-center justify-center bg-primary text-white hover:bg-primaryLight font-bold py-4 px-10 rounded-full transition-all duration-300 uppercase tracking-wider text-sm shadow-lg hover:shadow-gold">
+                                Fale Conosco
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 relative flex justify-center">
+                        <div class="absolute -top-4 -left-4 w-24 h-24 bg-primary/20 rounded-full -z-10"></div>
+                        <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-gray-200 rounded-full -z-10"></div>
+                        
+                        <div class="relative h-[500px] w-full max-w-md rounded-2xl overflow-hidden shadow-2xl group mx-auto">
+                            <img src="img/representante.jpg" alt="Representante Casa Nessandy" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 to-transparent p-8">
+                                <p class="text-5xl font-bold text-primary mb-1">10+</p>
+                                <p class="text-sm font-bold text-white uppercase tracking-widest">Anos de Experiência</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        
+        <!-- Por que Nós -->
+        <section class="py-24 bg-black text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-20">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Porquê a Casa Nessandy?</h2>
+                    <div class="w-24 h-1.5 bg-primary mx-auto rounded-full"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="bg-gray-900/50 backdrop-blur-sm p-10 rounded-2xl border border-gray-800 hover:border-primary transition-all duration-300 group hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-black text-primary rounded-2xl flex items-center justify-center mb-8 text-2xl group-hover:bg-primary group-hover:text-black transition-all shadow-lg border border-gray-800">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Foco no Cliente</h3>
+                        <p class="text-gray-400 leading-relaxed font-light">
+                            Dedicação exclusiva para entender e atender suas necessidades, garantindo a melhor experiência.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-900/50 backdrop-blur-sm p-10 rounded-2xl border border-gray-800 hover:border-primary transition-all duration-300 group hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-black text-primary rounded-2xl flex items-center justify-center mb-8 text-2xl group-hover:bg-primary group-hover:text-black transition-all shadow-lg border border-gray-800">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Agilidade e Eficiência</h3>
+                        <p class="text-gray-400 leading-relaxed font-light">
+                            Processos otimizados e uma equipe proativa para entregar resultados rápidos e concretos.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-900/50 backdrop-blur-sm p-10 rounded-2xl border border-gray-800 hover:border-primary transition-all duration-300 group hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-black text-primary rounded-2xl flex items-center justify-center mb-8 text-2xl group-hover:bg-primary group-hover:text-black transition-all shadow-lg border border-gray-800">
+                            <i class="fas fa-globe-europe"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Soluções 360º</h3>
+                        <p class="text-gray-400 leading-relaxed font-light">
+                            Do imóvel à reforma, da limpeza ao transporte. Cuidamos de tudo para você.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Services Image Section -->
+        <section class="py-24 bg-gray-50 overflow-hidden">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl group bg-gradient-to-br from-gray-900 via-gray-800 to-black h-[400px] flex items-center justify-center text-center p-12">
+                    <!-- Background Pattern -->
+                    <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+                    
+                    <div class="relative z-20 max-w-2xl">
+                        <span class="text-primary font-bold uppercase tracking-[0.2em] text-sm mb-6 block animate-fade-in-up">Mais do que imagina</span>
+                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight animate-fade-in-up delay-100">
+                            Soluções Integradas para o seu dia a dia
+                        </h2>
+                        <p class="text-gray-300 text-lg font-light leading-relaxed mb-10 animate-fade-in-up delay-200">
+                            Descubra nossa gama completa de serviços complementares pensados para facilitar a sua vida e valorizar o seu património.
+                        </p>
+                        <a href="contato.html" class="inline-flex items-center bg-white text-gray-900 hover:bg-primary hover:text-white font-bold py-4 px-10 rounded-full transition-all duration-300 uppercase text-xs tracking-widest group shadow-lg animate-fade-in-up delay-300 transform hover:-translate-y-1">
+                            Saiba Mais
+                            <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="py-20 bg-primary relative overflow-hidden">
+            <div class="absolute inset-0 bg-pattern opacity-10"></div>
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <i class="fas fa-envelope-open-text text-5xl text-black/20 mb-6"></i>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Mantenha-se Atualizado</h2>
+                <p class="text-white/90 mb-10 text-lg font-light">Receba em primeira mão as melhores oportunidades e novidades exclusivas.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <input type="email" placeholder="Seu melhor e-mail" class="px-6 py-4 rounded-full border-none focus:ring-4 focus:ring-black/20 flex-grow max-w-md shadow-xl text-gray-800 placeholder-gray-400 outline-none">
+                    <button class="bg-black text-white px-10 py-4 rounded-full font-bold hover:bg-gray-900 transition-all uppercase text-sm tracking-wider shadow-xl transform hover:scale-105">
+                        Inscrever-se
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white pt-20 pb-10 border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-16">
+                <div class="col-span-1 md:col-span-2">
+                    <img src="img/logo.jpg" alt="Casa Nessandy" class="h-16 mb-8 object-contain filter brightness-0 invert opacity-90">
+                    <p class="text-gray-400 mb-8 max-w-sm leading-relaxed font-light">
+                        Sua parceira ideal. Oferecemos serviços imobiliários, limpeza, cuidados com idosos, TVDE e obras com excelência e dedicação total a você.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com" class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 text-gray-400">
+                            <i class="fab fa-facebook-f text-lg"></i>
+                        </a>
+                        <a href="https://www.instagram.com/casa.nessandy/" class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 text-gray-400">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
+                        <a href="https://wa.me/351965443586" class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 text-gray-400">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-bold mb-8 text-primary uppercase tracking-widest">Navegação</h3>
+                    <ul class="space-y-4 text-gray-400 font-light">
+                        <li><a href="index.html" class="hover:text-white transition-colors flex items-center"><i class="fas fa-chevron-right text-xs mr-3 text-primary/50"></i> Home</a></li>
+                        <li><a href="contato.html" class="hover:text-white transition-colors flex items-center"><i class="fas fa-chevron-right text-xs mr-3 text-primary/50"></i> Fale Conosco</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-bold mb-8 text-primary uppercase tracking-widest">Fale Conosco</h3>
+                    <ul class="space-y-6 text-gray-400 font-light">
+                        <li class="flex items-start group">
+                            <i class="fas fa-map-marker-alt mt-1.5 mr-4 text-primary group-hover:text-white transition-colors"></i>
+                            <span class="group-hover:text-gray-300 transition-colors">Av. das Forças Armadas nº 8, 5º andar, Sala 5<br>Amadora, 2700-596</span>
+                        </li>
+                        <li class="flex items-center group">
+                            <i class="fas fa-phone-alt mr-4 text-primary group-hover:text-white transition-colors"></i>
+                            <span class="group-hover:text-gray-300 transition-colors">+351 965 443 586</span>
+                        </li>
+                        <li class="flex items-center group">
+                            <i class="fas fa-envelope mr-4 text-primary group-hover:text-white transition-colors"></i>
+                            <span class="group-hover:text-gray-300 transition-colors">casanessandy@outlook.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-900 mt-20 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-600 text-xs uppercase tracking-wider">
+                <p>&copy; 2024 Casa Nessandy. Todos os direitos reservados.</p>
+                <p class="mt-4 md:mt-0 flex items-center">Desenvolvido com <i class="fas fa-heart text-primary mx-2 animate-pulse"></i> para você</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
