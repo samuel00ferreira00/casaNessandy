@@ -51,4 +51,4 @@ Para mais informações sobre os serviços ou sobre o desenvolvimento deste site
 *   **Endereço:** Av. das Forças Armadas nº 8, 5º andar, Sala 5 - Amadora, 2700-596
 
 ---
-Desenvolvido com ❤️ para Casa Nessandy.
+Desenvolvido por SAMUEL FERREIRA.
